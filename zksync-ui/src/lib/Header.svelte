@@ -1,5 +1,17 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+  import { wallet, connectMetaMask } from '$lib/wallet';
+  import { formatter } from '$lib/utils';
+
+  async function handleConnect() {
+    console.log('Connecting to MetaMask');
+    try {
+      $wallet = await connectMetaMask();
+      alert('Connected MetaMask')
+    } catch (e) {
+      alert(`Unable to connect: ${e.message}`)
+    }
+  }
 </script>
 
 <header>
@@ -20,9 +32,18 @@
 		</ul>
 	</nav>
 
-	<div class="corner">
-		<button>Connect</button>
-	</div>
+  {#if $wallet.connected}
+  	<div class="corner">
+      <p>
+        {formatter.address($wallet.address)}
+      </p>
+    </div>
+  {:else}
+    <div class="corner">
+      <button on:click={handleConnect}>Connect</button>
+    </div>
+  {/if}
+
 </header>
 
 <style>
@@ -37,6 +58,7 @@
     display: flex;
 		align-items: center;
 		justify-content: center;
+    margin: 0.25em;
 	}
 
 	nav {
@@ -49,7 +71,7 @@
 		position: relative;
 		padding: 0;
 		margin: 0;
-		height: 3em;
+		height: 3.5em;
 		display: flex;
 		justify-content: center;
 		align-items: center;

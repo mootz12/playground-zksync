@@ -1,4 +1,7 @@
+<script>
+  import { HELLO_CONTRACT } from '../contracts'
 
+</script>
 
 <h1>A Poorly Designed Excuse to Learn Svelte with Svelte-Kit</h1>
 
