@@ -1,17 +1,19 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-  import { wallet, connectMetaMask } from '$lib/wallet';
-  import { formatter } from '$lib/utils';
+  import { wallet } from '$lib/wallet';
+  import { formatter, zkUtils } from '$lib/utils';
+  import { Token } from 'zksync-web3/build/types';
 
   async function handleConnect() {
     console.log('Connecting to MetaMask');
     try {
-      $wallet = await connectMetaMask();
+      $wallet = await zkUtils.connectMetaMask();
       alert('Connected MetaMask')
     } catch (e) {
       alert(`Unable to connect: ${e.message}`)
     }
   }
+
 </script>
 
 <header>
